@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  db:
+    image: mariadb:10.9.2-jammy
+    restart: always
+    environment:
+      MARIADB_USER: root
+      MARIADB_ROOT_PASSWORD: pass
+      MARIADB_PASSWORD: 123
+
+
+  adminer: 
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+  phpmyadmin:
+    image: phpmyadmin:5.2.0-apache
+    restart: always
+    ports:
+      - "8077:80"
+    environment:
+      - PMA_HOST=db
+    depends_on:
+      - db
+
